@@ -1,0 +1,32 @@
+/* src/styles/beneficios.css */
+.beneficios-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+.beneficios-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+.lista-beneficios {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.beneficio-card {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border-left: 5px solid #8b0000;
+}
+.beneficio-op {
+  font-weight: bold;
+  color: #8b0000;
+  display: block;
+  margin-bottom: 5px;
+}
+.beneficio-titulo {
+  color: #333;
+}

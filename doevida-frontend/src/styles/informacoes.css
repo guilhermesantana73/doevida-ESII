@@ -1,0 +1,50 @@
+.info-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.info-card-conscientizacao {
+  max-width: 500px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.info-icon {
+  font-size: 3rem;
+  color: #8b0000;
+  margin-bottom: 20px;
+}
+
+.info-card-conscientizacao h1 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.info-card-conscientizacao p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.botao-continuar {
+  width: 100%;
+  padding: 12px;
+  background: #8b0000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.botao-continuar:hover {
+  background: #a30000;
+}

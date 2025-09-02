@@ -59,11 +59,6 @@ function Cadastro() {
 
   return (
     <div>
-      <header className="cabecalho">
-        <div className="logotipo">
-          D<span className="gota-logo"></span>EVIDA
-        </div>
-      </header>
 
       <main className="container-login">
         <form onSubmit={handleSubmit} className="cartao-login">
@@ -130,15 +125,6 @@ function Cadastro() {
         </form>
       </main>
       
-      <footer className="rodape">
-        <p>DOEVIDA - Plataforma de doação de sangue</p>
-        <div className="links-rodape">
-          <a href="#">Sobre nós</a>
-          <a href="#">Contato</a>
-          <a href="#">Termos de uso</a>
-          <a href="#">Política de privacidade</a>
-        </div>
-      </footer>
     </div>
   );
 }

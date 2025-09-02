@@ -49,11 +49,6 @@ function Login() {
   return (
     <div>
       {/* O seu JSX (HTML) permanece quase o mesmo, com pequenas mudanças */}
-      <header className="cabecalho">
-        <div className="logotipo">
-          D<span className="gota-logo"></span>EVIDA
-        </div>
-      </header>
 
       <main className="container-login">
         {/* Usamos a tag <form> para melhor semântica e acessibilidade */}
@@ -110,16 +105,6 @@ function Login() {
         </form>
       </main>
       
-      {/* Rodapé */}
-      <footer className="rodape">
-        <p>DOEVIDA - Plataforma de doação de sangue</p>
-        <div className="links-rodape">
-          <a href="#">Sobre nós</a>
-          <a href="#">Contato</a>
-          <a href="#">Termos de uso</a>
-          <a href="#">Política de privacidade</a>
-        </div>
-      </footer>
     </div>
   );
 }

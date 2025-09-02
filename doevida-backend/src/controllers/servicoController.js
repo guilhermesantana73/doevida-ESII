@@ -107,3 +107,21 @@ exports.deletarServico = async (req, res) => {
         res.status(500).json({ error: 'Erro interno do servidor.' });
     }
 };
+
+exports.listarTodosServicos = async (req, res) => {
+    try {
+        // Este comando SQL une as tabelas 'servicos' e 'organizacoes_parceiras'
+        // para que possamos ter o nome da OP junto com os detalhes do serviço.
+        const { rows } = await db.query(
+            `SELECT 
+                s.id, s.titulo, s.descricao, op.nome_fantasia 
+             FROM servicos s
+             JOIN organizacoes_parceiras op ON s.fk_op_id = op.id
+             ORDER BY op.nome_fantasia, s.titulo`
+        );
+        res.status(200).json(rows);
+    } catch (error) {
+        console.error('Erro ao listar todos os serviços:', error);
+        res.status(500).json({ error: 'Erro interno do servidor.' });
+    }
+};

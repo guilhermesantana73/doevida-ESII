@@ -1,0 +1,64 @@
+.dashboard-page {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 0 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Espaçamento entre as seções */
+}
+
+.dashboard-section h2 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+/* Grid de Botões de Ação */
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+  gap: 15px;
+}
+
+.action-button {
+  background-color: #8b0000;
+  color: white;
+  text-decoration: none;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: background-color 0.2s;
+}
+
+.action-button:hover {
+  background-color: #a30000;
+}
+
+.action-button i {
+  font-size: 2rem; /* Tamanho do ícone */
+  margin-bottom: 10px;
+}
+
+.action-button span {
+  font-weight: bold;
+}
+
+/* Cards de Informação (Próxima Doação e Notificações) */
+.info-card {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.info-card p {
+  margin: 0;
+  line-height: 1.5;
+  color: #555;
+}
