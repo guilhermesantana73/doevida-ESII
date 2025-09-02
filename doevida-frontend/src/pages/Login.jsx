@@ -1,40 +1,68 @@
-import React from "react";
-import "../styles/login.css"; // importa seu CSS
+// Login.jsx - VERSÃO ATUALIZADA COM API
+import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom'; // 1. Importe o useNavigate
+import "../styles/login.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function Login() {
-  // Funções do JS original
-  const handleLogin = () => {
-    const email = document.getElementById("email").value;
-    const senha = document.getElementById("senha").value;
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate(); // 2. Inicialize o hook de navegação
 
-    if (email && senha) {
-      alert("Login realizado com sucesso! Redirecionando...");
-    } else {
-      alert("Por favor, preencha todos os campos.");
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    setError("");
+
+    if (!email || !senha) {
+      setError("Por favor, preencha todos os campos.");
+      return;
     }
-  };
 
-  const handleCadastro = () => {
-    alert("Redirecionando para a página de cadastro...");
+    try {
+      const response = await fetch("http://localhost:3000/api/usuarios/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, senha }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Falha no login.");
+      }
+
+      // --- INÍCIO DAS NOVAS AÇÕES ---
+      // 3. Salve o token no armazenamento local do navegador
+      localStorage.setItem('token', data.token);
+
+      // 4. Redirecione o usuário para a página de dashboard
+      navigate('/dashboard');
+      // --- FIM DAS NOVAS AÇÕES ---
+
+    } catch (err) {
+      console.error("Erro no login:", err);
+      setError(err.message);
+    }
   };
 
   return (
     <div>
-      {/* 🔝 Cabeçalho Superior */}
+      {/* O seu JSX (HTML) permanece quase o mesmo, com pequenas mudanças */}
       <header className="cabecalho">
         <div className="logotipo">
           D<span className="gota-logo"></span>EVIDA
         </div>
       </header>
 
-      {/* 🧱 Área de Login */}
       <main className="container-login">
-        <div className="cartao-login">
-          {/* 🔠 Título */}
+        {/* Usamos a tag <form> para melhor semântica e acessibilidade */}
+        <form className="cartao-login" onSubmit={handleLogin}>
           <h1 className="titulo-login">Login</h1>
 
-          {/* 📨 Campo de E-mail */}
+          {/* Exibe a mensagem de erro, se houver */}
+          {error && <p style={{ color: 'red', textAlign: 'center', marginBottom: '10px' }}>{error}</p>}
+
           <div className="grupo-entrada">
             <label htmlFor="email">E-mail</label>
             <div className="container-icone">
@@ -44,11 +72,13 @@ function Login() {
                 id="email"
                 className="campo-entrada"
                 placeholder="Digite seu e-mail"
+                // Conecta o campo ao estado 'email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           </div>
 
-          {/* 🔒 Campo de Senha */}
           <div className="grupo-entrada">
             <label htmlFor="senha">Senha</label>
             <div className="container-icone">
@@ -58,25 +88,28 @@ function Login() {
                 id="senha"
                 className="campo-entrada"
                 placeholder="Digite sua senha"
+                // Conecta o campo ao estado 'senha'
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
               />
             </div>
           </div>
 
-          {/* 🔘 Botão Entrar */}
-          <button type="button" className="botao-entrar" onClick={handleLogin}>
+          {/* O botão agora é do tipo 'submit' dentro do formulário */}
+          <button type="submit" className="botao-entrar">
             Entrar
           </button>
 
-          {/* 🆕 Link de Cadastro */}
           <div className="container-cadastro">
             <p className="texto-cadastro">Ainda não tem uma conta?</p>
-            <button className="botao-cadastro" onClick={handleCadastro}>
-              Cadastre-se
+            {/* Modifique este botão */}
+            <button type="button" className="botao-cadastro" onClick={() => navigate('/cadastro')}>
+            Cadastre-se
             </button>
           </div>
-        </div>
+        </form>
       </main>
-
+      
       {/* Rodapé */}
       <footer className="rodape">
         <p>DOEVIDA - Plataforma de doação de sangue</p>

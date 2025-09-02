@@ -96,9 +96,6 @@ exports.loginUsuario = async (req, res) => {
     }
 };
 
-// src/controllers/usuarioController.js
-// ... (imports e outras funções) ...
-
 // Nova função para buscar o perfil
 exports.getPerfilUsuario = async (req, res) => {
     try {
