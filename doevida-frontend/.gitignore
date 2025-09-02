@@ -1,0 +1,11 @@
+# Dependências do Node.js
+node_modules/
+
+# Arquivo de ambiente (caso o frontend tenha um)
+.env*
+
+# Pasta de build de produção do Vite
+dist/
+
+# Logs
+*.log

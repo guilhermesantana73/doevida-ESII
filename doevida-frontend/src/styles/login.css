@@ -1,0 +1,150 @@
+/* Reset simples */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Corpo */
+body {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* Cabeçalho */
+.cabecalho {
+  background-color: #8b0000;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.logotipo {
+  display: inline-block;
+  font-size: 28px;
+}
+
+.gota-logo {
+  display: inline-block;
+  width: 12px;
+  height: 18px;
+  background-color: white;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  margin: 0 3px;
+}
+
+/* Container do Login */
+.container-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.cartao-login {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 350px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+}
+
+.titulo-login {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #8b0000;
+}
+
+/* Campos de entrada */
+.grupo-entrada {
+  margin-bottom: 15px;
+}
+
+.grupo-entrada label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.container-icone {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.icone-entrada {
+  margin-right: 8px;
+  color: #8b0000;
+}
+
+.campo-entrada {
+  border: none;
+  outline: none;
+  flex: 1;
+}
+
+/* Botão Entrar */
+.botao-entrar {
+  width: 100%;
+  padding: 10px;
+  background: #8b0000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+.botao-entrar:hover {
+  background: #a30000;
+}
+
+/* Área de cadastro */
+.container-cadastro {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.texto-cadastro {
+  margin-bottom: 8px;
+}
+
+.botao-cadastro {
+  background: none;
+  border: none;
+  color: #8b0000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Rodapé */
+.rodape {
+  text-align: center;
+  background: #f0f0f0;
+  padding: 15px;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.links-rodape {
+  margin-top: 8px;
+}
+
+.links-rodape a {
+  margin: 0 8px;
+  color: #8b0000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.links-rodape a:hover {
+  text-decoration: underline;
+}
