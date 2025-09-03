@@ -1,43 +1,38 @@
-// src/components/Header.jsx - VERSÃO FINAL INTELIGENTE
 import React from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import '../styles/login.css';
+import { useNavigate } from 'react-router-dom';
+
+import logoBranca from '../assets/whiteLogo.svg'; 
 
 function Header() {
   const navigate = useNavigate();
-  const token = localStorage.getItem('token'); // Verifica se o usuário está logado
+
+  // Lógica de autenticação lendo diretamente do localStorage
+  const token = localStorage.getItem('token');
+  const isAuthenticated = !!token; // Converte para true/false
 
   const handleHomeClick = () => {
-    // A lógica do botão 'home' continua a mesma
-    if (token) {
-      navigate('/dashboard');
-    } else {
-      navigate('/login');
-    }
+    // Leva para o dashboard se logado, ou para o login se não estiver
+    navigate(isAuthenticated ? '/dashboard' : '/login');
   };
 
   const handleLogout = () => {
-    // Nova função para fazer logout
-    localStorage.removeItem('token'); // Remove o token
-    navigate('/login'); // Envia o usuário para a página de login
+    localStorage.removeItem('token');
+    // Força um recarregamento completo para limpar qualquer estado da aplicação
+    window.location.href = '/login'; 
   };
 
   return (
     <header className="cabecalho">
-      <button onClick={handleHomeClick} className="home-button" title="Página Inicial">
-        <i className="fas fa-home"></i>
-      </button>
-      
-      <div className="logotipo">
-        <Link to="/login" onClick={(e) => { e.preventDefault(); handleHomeClick(); }}>
-          D<span className="gota-logo"></span>EVIDA
-        </Link>
+      {/* 2. A logo agora é uma <img> clicável posicionada à esquerda */}
+      <div onClick={handleHomeClick} style={{ cursor: 'pointer' }}>
+        <img src={logoBranca} alt="Doevida Logo" className="header-logo" />
       </div>
 
-      {/* RENDERIZAÇÃO CONDICIONAL: Mostra o botão 'Sair' APENAS se houver um token */}
-      {token && (
-        <button onClick={handleLogout} className="logout-button">
-          Sair
+      {/* 3. O botão "Sair" estilizado só aparece se o usuário estiver autenticado */}
+      {isAuthenticated && (
+        <button onClick={handleLogout} className="header-logout-button">
+          <i className="fas fa-sign-out-alt"></i>
+          <span>Sair</span>
         </button>
       )}
     </header>

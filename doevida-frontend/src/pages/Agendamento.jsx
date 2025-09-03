@@ -47,32 +47,34 @@ function Agendamento() {
   };
 
   return (
-    <main className="container-login">
-      <form onSubmit={handleSubmit} className="cartao-login">
-        <h1 className="titulo-login">Agendamento</h1>
-        {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+    <div className="page-container">
+      <main className="container-login">
+        <form onSubmit={handleSubmit} className="cartao-login">
+          <h1 className="titulo-login">Agendamento</h1>
+          {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
 
-        <div className="grupo-entrada">
-          <label htmlFor="local_doacao">Local da doação</label>
-          <input
-            id="local_doacao" name="local_doacao" type="text"
-            className="campo-entrada-triagem"
-            value={form.local_doacao} onChange={handleChange} required
-          />
-        </div>
-        
-        <div className="grupo-entrada">
-          <label htmlFor="data_agendamento">Data e Horário</label>
-          <input
-            id="data_agendamento" name="data_agendamento" type="datetime-local"
-            className="campo-entrada-triagem"
-            value={form.data_agendamento} onChange={handleChange} required
-          />
-        </div>
+          <div className="grupo-entrada">
+            <label htmlFor="local_doacao">Local da doação</label>
+            <input
+              id="local_doacao" name="local_doacao" type="text"
+              className="campo-entrada-triagem"
+              value={form.local_doacao} onChange={handleChange} required
+            />
+          </div>
+          
+          <div className="grupo-entrada">
+            <label htmlFor="data_agendamento">Data e Horário</label>
+            <input
+              id="data_agendamento" name="data_agendamento" type="datetime-local"
+              className="campo-entrada-triagem"
+              value={form.data_agendamento} onChange={handleChange} required
+            />
+          </div>
 
-        <button type="submit" className="botao-entrar">Agendar</button>
-      </form>
-    </main>
+          <button type="submit" className="botao-entrar">Agendar</button>
+        </form>
+      </main>
+    </div>
   );
 }
 export default Agendamento;

@@ -1,7 +1,5 @@
-// src/pages/Cadastro.jsx - VERSÃO FINAL COM API
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/login.css'; 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function Cadastro() {
@@ -58,21 +56,17 @@ function Cadastro() {
   };
 
   return (
-    <div>
+    <div className="container-login">
+      <div className="cartao-login">
+        <h1 className="titulo-login">Cadastro</h1>
+        {error && <p style={{ color: '#8a0303', textAlign: 'center', marginBottom: '15px' }}>{error}</p>}
 
-      <main className="container-login">
-        <form onSubmit={handleSubmit} className="cartao-login">
-          <h1 className="titulo-login">Cadastro</h1>
-          
-          {/* Área para exibir mensagens de erro */}
-          {error && <p style={{ color: 'red', textAlign: 'center', marginBottom: '10px' }}>{error}</p>}
-
-          {/* O resto do seu formulário JSX continua igual */}
+        <form onSubmit={handleSubmit}>
           <div className="grupo-entrada">
             <label htmlFor="nome">Nome Completo</label>
             <div className="container-icone">
               <i className="fas fa-user icone-entrada"></i>
-              <input type="text" name="nome" id="nome" placeholder="Digite seu nome completo" value={form.nome} onChange={handleChange} className="campo-entrada" required />
+              <input type="text" name="nome" id="nome" className="campo-entrada" placeholder="Digite seu nome" value={form.nome} onChange={handleChange} required />
             </div>
           </div>
           
@@ -80,7 +74,7 @@ function Cadastro() {
             <label htmlFor="cpf">CPF</label>
             <div className="container-icone">
               <i className="fas fa-id-card icone-entrada"></i>
-              <input type="text" name="cpf" id="cpf" placeholder="Digite seu CPF (apenas números)" value={form.cpf} onChange={handleChange} className="campo-entrada" required />
+              <input type="text" name="cpf" id="cpf" className="campo-entrada" placeholder="Digite seu CPF" value={form.cpf} onChange={handleChange} required />
             </div>
           </div>
 
@@ -88,7 +82,7 @@ function Cadastro() {
             <label htmlFor="email">E-mail</label>
             <div className="container-icone">
               <i className="fas fa-envelope icone-entrada"></i>
-              <input type="email" name="email" id="email" placeholder="Digite seu e-mail" value={form.email} onChange={handleChange} className="campo-entrada" required />
+              <input type="email" name="email" id="email" className="campo-entrada" placeholder="Digite seu e-mail" value={form.email} onChange={handleChange} required />
             </div>
           </div>
 
@@ -96,35 +90,32 @@ function Cadastro() {
             <label htmlFor="senha">Senha</label>
             <div className="container-icone">
               <i className="fas fa-lock icone-entrada"></i>
-              <input type="password" name="senha" id="senha" placeholder="Digite sua senha" value={form.senha} onChange={handleChange} className="campo-entrada" required />
+              <input type="password" name="senha" id="senha" className="campo-entrada" placeholder="Digite sua senha" value={form.senha} onChange={handleChange} required />
             </div>
           </div>
-          
+
           <div className="grupo-entrada">
             <label htmlFor="tipoSanguineo">Tipo Sanguíneo</label>
             <div className="container-icone">
               <i className="fas fa-tint icone-entrada"></i>
-              <select name="tipoSanguineo" id="tipoSanguineo" value={form.tipoSanguineo} onChange={handleChange} className="campo-entrada" required >
+              <select name="tipoSanguineo" id="tipoSanguineo" className="campo-entrada" value={form.tipoSanguineo} onChange={handleChange} required >
                 <option value="">Selecione...</option>
-                <option value="A+">A+</option> <option value="A-">A-</option>
-                <option value="B+">B+</option> <option value="B-">B-</option>
-                <option value="AB+">AB+</option> <option value="AB-">AB-</option>
-                <option value="O+">O+</option> <option value="O-">O-</option>
+                <option value="A+">A+</option><option value="A-">A-</option>
+                <option value="B+">B+</option><option value="B-">B-</option>
+                <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                <option value="O+">O+</option><option value="O-">O-</option>
               </select>
             </div>
           </div>
 
           <button type="submit" className="botao-entrar">Cadastrar</button>
-
-          <div className="container-cadastro">
-            <p className="texto-cadastro">Já tem uma conta?</p>
-            <button type="button" className="botao-cadastro" onClick={() => navigate('/login')}>
-              Faça o login
-            </button>
-          </div>
         </form>
-      </main>
-      
+
+        <div className="container-cadastro">
+          <p className="texto-cadastro">Já tem uma conta?</p>
+          <button onClick={() => navigate('/login')} className="botao-cadastro">Faça o login</button>
+        </div>
+      </div>
     </div>
   );
 }

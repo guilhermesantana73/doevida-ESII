@@ -1,101 +1,133 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/login.css';
-import '../styles/triagem.css';
-
 
 function Triagem() {
-  const [peso, setPeso] = useState('');
+  const navigate = useNavigate();
   const [respostas, setRespostas] = useState({
-    tatuagem: null,
-    ist: null,
-    endoscopia: null,
+    peso: '', // Adicionando o peso ao estado
+    tatuagem_piercing: null,
+    infeccoes_sexuais: null,
+    procedimento_endoscopico: null,
   });
   const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  const handleRadioChange = (e) => {
-    const { name, value } = e.target;
-    setRespostas(prev => ({ ...prev, [name]: value === 'sim' }));
+  // **** A FUNÇÃO QUE ESTAVA FALTANDO ESTÁ AQUI ****
+  const handleChange = (e) => {
+    const { name, value, type } = e.target;
+    if (type === 'radio') {
+      // Converte a string 'true'/'false' dos radios para boolean
+      setRespostas(prev => ({ ...prev, [name]: value === 'true' }));
+    } else {
+      // Para outros campos como o de peso
+      setRespostas(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
-    // Validação dos dados
-    if (peso === '' || respostas.tatuagem === null || respostas.ist === null || respostas.endoscopia === null) {
+    // Lógica de validação (adaptada para os novos nomes de estado)
+    if (!respostas.peso || respostas.tatuagem_piercing === null || respostas.infeccoes_sexuais === null || respostas.procedimento_endoscopico === null) {
       setError('Por favor, preencha todos os campos.');
+      setLoading(false);
       return;
     }
-
-    // Aplicação das Regras de Negócio
-    if (peso < 50) {
+    if (respostas.peso < 50) {
       setError('Inapto: O peso mínimo para doação é de 50 kg.');
+      setLoading(false);
       return;
     }
-    if (respostas.tatuagem || respostas.ist || respostas.endoscopia) {
-      setError('Inapto: Você possui um impedimento temporário para a doação. Agradecemos seu interesse!');
+    if (respostas.tatuagem_piercing || respostas.infeccoes_sexuais || respostas.procedimento_endoscopico) {
+      setError('Inapto: Você possui um impedimento temporário para a doação.');
+      setLoading(false);
       return;
     }
 
-    // Se passou por todas as validações, o usuário está apto!
     alert('Você está apto para a próxima etapa!');
-    navigate('/agendar-doacao'); // Redireciona para o agendamento
+    navigate('/agendar-doacao');
+    setLoading(false);
   };
 
   return (
-    <main className="container-login">
-      <form onSubmit={handleSubmit} className="cartao-login">
-        <h1 className="titulo-login">Triagem Rápida</h1>
+    <div className="page-container">
+      <div className="cartao-triagem">
+        <h1 className="titulo-triagem">Questionário de Triagem</h1>
+        <p className="subtitulo-triagem">Por favor, responda com sinceridade:</p>
+
         {error && <p className="error-message">{error}</p>}
 
-        <div className="grupo-entrada">
-          <label htmlFor="peso">Seu peso atual (kg)</label>
-          <input
-            id="peso" type="number"
-            className="campo-entrada-triagem"
-            value={peso} onChange={(e) => setPeso(e.target.value)}
-          />
-        </div>
-
-        <div className="grupo-questoes">
-          <p className="subtitulo-questoes">Nos últimos 6 meses você:</p>
+        <form onSubmit={handleSubmit}>
+          {/* Campo de Peso adicionado aqui para consistência */}
+          <div className="secao-triagem">
+            <div className="grupo-pergunta">
+              <p className="pergunta">Qual seu peso atual (kg)?</p>
+              <input
+                type="number" name="peso"
+                className="campo-entrada"
+                placeholder="Ex: 75"
+                value={respostas.peso}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
           
-          <div className="questao">
-            <label>Fez tatuagem ou colocou piercing/brinco?</label>
-            <div>
-              <input type="radio" id="tatuagem-sim" name="tatuagem" value="sim" onChange={handleRadioChange} />
-              <label htmlFor="tatuagem-sim">Sim</label>
-              <input type="radio" id="tatuagem-nao" name="tatuagem" value="nao" onChange={handleRadioChange} />
-              <label htmlFor="tatuagem-nao">Não</label>
+          <div className="secao-triagem">
+            <h2 className="secao-titulo">Nos últimos 6 meses você:</h2>
+
+            <div className="grupo-pergunta">
+              <p className="pergunta">Fez tatuagem ou colocou piercing/brinco?</p>
+              <div className="opcoes-radio">
+                <label className="opcao-radio">
+                  <input type="radio" name="tatuagem_piercing" value="true" checked={respostas.tatuagem_piercing === true} onChange={handleChange} required />
+                  <span>Sim</span>
+                </label>
+                <label className="opcao-radio">
+                  <input type="radio" name="tatuagem_piercing" value="false" checked={respostas.tatuagem_piercing === false} onChange={handleChange} />
+                  <span>Não</span>
+                </label>
+              </div>
+            </div>
+
+            <div className="grupo-pergunta">
+              <p className="pergunta">Se expôs a infecções sexualmente transmissíveis?</p>
+              <div className="opcoes-radio">
+                <label className="opcao-radio">
+                  <input type="radio" name="infeccoes_sexuais" value="true" checked={respostas.infeccoes_sexuais === true} onChange={handleChange} required />
+                  <span>Sim</span>
+                </label>
+                <label className="opcao-radio">
+                  <input type="radio" name="infeccoes_sexuais" value="false" checked={respostas.infeccoes_sexuais === false} onChange={handleChange} />
+                  <span>Não</span>
+                </label>
+              </div>
+            </div>
+
+            <div className="grupo-pergunta">
+              <p className="pergunta">Fez algum procedimento endoscópico?</p>
+              <div className="opcoes-radio">
+                <label className="opcao-radio">
+                  <input type="radio" name="procedimento_endoscopico" value="true" checked={respostas.procedimento_endoscopico === true} onChange={handleChange} required />
+                  <span>Sim</span>
+                </label>
+                <label className="opcao-radio">
+                  <input type="radio" name="procedimento_endoscopico" value="false" checked={respostas.procedimento_endoscopico === false} onChange={handleChange} />
+                  <span>Não</span>
+                </label>
+              </div>
             </div>
           </div>
-
-          <div className="questao">
-            <label>Se expôs a infecções sexualmente transmissíveis?</label>
-            <div>
-              <input type="radio" id="ist-sim" name="ist" value="sim" onChange={handleRadioChange} />
-              <label htmlFor="ist-sim">Sim</label>
-              <input type="radio" id="ist-nao" name="ist" value="nao" onChange={handleRadioChange} />
-              <label htmlFor="ist-nao">Não</label>
-            </div>
-          </div>
-
-          <div className="questao">
-            <label>Fez algum procedimento endoscópico?</label>
-            <div>
-              <input type="radio" id="endoscopia-sim" name="endoscopia" value="sim" onChange={handleRadioChange} />
-              <label htmlFor="endoscopia-sim">Sim</label>
-              <input type="radio" id="endoscopia-nao" name="endoscopia" value="nao" onChange={handleRadioChange} />
-              <label htmlFor="endoscopia-nao">Não</label>
-            </div>
-          </div>
-        </div>
-
-        <button type="submit" className="botao-entrar">Verificar aptidão</button>
-      </form>
-    </main>
+          
+          <button type="submit" className="botao-entrar" disabled={loading}>
+            {loading ? 'Verificando...' : 'Verificar Aptidão'}
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }
+
 export default Triagem;

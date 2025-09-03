@@ -149,57 +149,43 @@ body {
   text-decoration: underline;
 }
 
-/* COLE ESTE BLOCO NO LUGAR DAS REGRAS ANTERIORES EM src/styles/login.css */
+/* Cole este bloco no seu arquivo CSS principal */
 
 .cabecalho {
   background-color: #8b0000;
-  color: white;
-  padding: 15px 20px;
-  display: flex; /* Continua sendo flex para alinhar verticalmente */
-  justify-content: center; /* Apenas centraliza o que não for absoluto (o logotipo) */
+  width: 100%;
+  min-height: 70px;
+  padding: 0 40px; /* Espaçamento nas laterais */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
   align-items: center;
-  position: relative; /* ESSENCIAL: Torna o cabeçalho a referência para os botões */
+  justify-content: space-between; /* ESSENCIAL: empurra a logo para a esquerda e o botão para a direita */
 }
 
-.home-button {
-  /* Posicionamento absoluto em relação ao .cabecalho */
-  position: absolute;
-  left: 20px; /* Fixa o botão à esquerda */
-  top: 50%; /* Centraliza verticalmente */
-  transform: translateY(-50%); /* Ajuste fino da centralização vertical */
-
-  /* Estilos visuais */
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
+/* Nova regra para controlar o tamanho da imagem da logo */
+.header-logo {
+  height: 40px; /* Você pode ajustar a altura da sua logo aqui */
+  display: block; 
 }
 
-.logotipo {
-  /* Não precisa de margens especiais, ele já será centralizado pelo flexbox do pai */
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.logotipo a {
-  color: white;
-  text-decoration: none;
-}
-
-.logout-button {
-  /* Posicionamento absoluto em relação ao .cabecalho */
-  position: absolute;
-  right: 20px; /* Fixa o botão à direita */
-  top: 50%; /* Centraliza verticalmente */
-  transform: translateY(-50%); /* Ajuste fino da centralização vertical */
-
-  /* Estilos visuais */
+/* Novo botão de logout estilizado */
+.header-logout-button {
   background-color: white;
   color: #8b0000;
   border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: bold;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espaço entre o ícone e o texto */
+}
+
+.header-logout-button:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }

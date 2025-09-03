@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/historico.css'; // Um novo CSS para esta página
 
 function Historico() {
   const [doacoes, setDoacoes] = useState([]);
@@ -41,31 +40,34 @@ function Historico() {
   if (error) return <div className="historico-container"><p className="error-message">{error}</p></div>;
 
   return (
-    <div className="historico-container">
-      <h2>Meu Histórico de Doações</h2>
-      {doacoes.length === 0 ? (
-        <p>Você ainda não possui doações no seu histórico.</p>
-      ) : (
-        <table className="historico-tabela">
-          <thead>
-            <tr>
-              <th>Data do Agendamento</th>
-              <th>Local</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {doacoes.map(doacao => (
-              <tr key={doacao.id}>
-                <td>{new Date(doacao.data_agendamento).toLocaleString('pt-BR')}</td>
-                <td>{doacao.local_doacao}</td>
-                <td>
+    <div className="page-container">
+      <div className="cabecalho-conteudo">
+        <h1 className="titulo-principal">Meu Histórico de Doações</h1>
+      </div>
+
+      {loading && <p>Carregando histórico...</p>}
+      {error && <p className="error-message">{error}</p>}
+
+      {!loading && !error && (
+        <div className="lista-cards">
+          {doacoes.length > 0 ? (
+            doacoes.map(doacao => (
+              <div key={doacao.id} className="cartao-item">
+                <div className="cartao-info-principal">
+                  <span className="cartao-titulo">{doacao.local_doacao}</span>
+                  <span className="cartao-subtitulo">
+                    Agendado para: {new Date(doacao.data_agendamento).toLocaleString('pt-BR')}
+                  </span>
+                </div>
+                <div className="cartao-info-secundaria">
                   <span className={`status status-${doacao.status.toLowerCase()}`}>{doacao.status}</span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>Você ainda não possui doações no seu histórico.</p>
+          )}
+        </div>
       )}
     </div>
   );

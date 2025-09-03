@@ -27,6 +27,8 @@ router.put('/:id', authMiddleware, campanhaController.atualizarCampanha);
 // Nova rota para DELETAR uma campanha
 router.delete('/:id', authMiddleware, campanhaController.deletarCampanha);
 
+router.get('/me', authMiddleware, campanhaController.listarMinhasCampanhas);
+
 
 
 module.exports = router;

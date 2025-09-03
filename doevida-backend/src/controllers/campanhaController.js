@@ -140,3 +140,21 @@ exports.deletarCampanha = async (req, res) => {
         res.status(500).json({ error: 'Erro interno do servidor.' });
     }
 };
+
+exports.listarMinhasCampanhas = async (req, res) => {
+    // Apenas Gestores podem acessar
+    if (req.usuario.tipo !== 'GESTOR') {
+        return res.status(403).json({ error: 'Acesso negado.' });
+    }
+    const gestorId = req.usuario.id;
+    try {
+        const { rows } = await db.query(
+            'SELECT * FROM campanhas WHERE fk_gestor_id = $1 ORDER BY data_inicio DESC',
+            [gestorId]
+        );
+        res.status(200).json(rows);
+    } catch (error) {
+        console.error('Erro ao listar campanhas do gestor:', error);
+        res.status(500).json({ error: 'Erro interno do servidor.' });
+    }
+};
