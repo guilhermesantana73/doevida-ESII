@@ -20,4 +20,6 @@ router.patch('/:id/status', authMiddleware, usuarioController.atualizarStatusUsu
 
 router.delete('/:id', authMiddleware, usuarioController.deletarUsuario);
 
+router.get('/:id/doacoes', authMiddleware, campanhaController.listarDoacoesDaCampanha);
+
 module.exports = router;

@@ -24,6 +24,9 @@ import Informacoes from './pages/Informacoes.jsx';
 import PlaceholderPage from './pages/PlaceholderPage';
 import CriarCampanha from './pages/Gestor/CriarCampanha';
 import EditarCampanha from './pages/Gestor/EditarCampanha';
+import MonitorarCampanha from './pages/Gestor/MonitorarCampanha';
+import AgendaCampanha from './pages/Gestor/AgendaCampanha';
+import NotificarDoadores from './pages/Gestor/NotificarDoadores';
 
 function App() {
   return (
@@ -51,6 +54,10 @@ function App() {
           {/* Rota Protegida do Gestor */}
            <Route path="/gestor/campanhas/nova" element={<RotaProtegida><CriarCampanha /></RotaProtegida>} />
            <Route path="/gestor/campanhas/editar/:id" element={<RotaProtegida><EditarCampanha /></RotaProtegida>} />
+           <Route path="/gestor/campanhas/:id" element={<RotaProtegida><MonitorarCampanha /></RotaProtegida>} />
+           <Route path="/gestor/campanhas/:id/agenda" element={<RotaProtegida><AgendaCampanha /></RotaProtegida>} />
+           <Route path="/gestor/notificar" element={<RotaProtegida><NotificarDoadores /></RotaProtegida>} />
+
           
           {/* Rota Padrão */}
           <Route path="*" element={<Login />} />

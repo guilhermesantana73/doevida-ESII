@@ -194,4 +194,27 @@ exports.deletarUsuario = async (req, res) => {
         console.error('Erro ao deletar usuário:', error);
         res.status(500).json({ error: 'Erro interno do servidor.' });
     }
+};exports.deletarUsuario = async (req, res) => {
+    if (req.usuario.tipo !== 'ADMINISTRADOR') {
+        return res.status(403).json({ error: 'Acesso negado.' });
+    }
+
+    const { id } = req.params; // ID do usuário a ser deletado
+
+    // Regra de negócio: Admin não pode deletar a própria conta
+    // Convertemos para Number para garantir a comparação correta
+    if (Number(id) === req.usuario.id) {
+        return res.status(403).json({ error: 'Você não pode deletar sua própria conta de administrador.' });
+    }
+
+    try {
+        const resultado = await db.query('DELETE FROM usuarios WHERE id = $1', [id]);
+        if (resultado.rowCount === 0) {
+            return res.status(404).json({ error: 'Usuário não encontrado.' });
+        }
+        res.status(204).send(); // Sucesso, sem conteúdo para retornar
+    } catch (error) {
+        console.error('Erro ao deletar usuário:', error);
+        res.status(500).json({ error: 'Erro interno do servidor.' });
+    }
 };

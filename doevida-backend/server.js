@@ -10,6 +10,7 @@ const campanhasRoutes = require('./src/routes/campanhasRoutes');
 const doacoesRoutes = require('./src/routes/doacoesRoutes');
 const organizacoesRoutes = require('./src/routes/organizacoesRoutes');
 const publicosRoutes = require('./src/routes/publicosRoutes');
+const notificacoesRoutes = require('./src/routes/notificacoesRoutes');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -30,6 +31,7 @@ app.use('/api/campanhas', campanhasRoutes);
 app.use('/api/doacoes', doacoesRoutes);
 app.use('/api/organizacoes', organizacoesRoutes);
 app.use('/api', publicosRoutes); // Usando um prefixo genérico /api
+app.use('/api/notificacoes', notificacoesRoutes);
 
 
 app.listen(port, () => {

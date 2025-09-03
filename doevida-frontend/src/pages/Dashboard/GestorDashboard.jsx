@@ -57,7 +57,7 @@ function GestorDashboard() {
     }
   };
 
-  return (
+ return (
     <div className="page-container" onClick={() => setMenuAbertoId(null)}>
       <div className="cabecalho-conteudo">
         <h1 className="titulo-principal">Minhas Campanhas</h1>
@@ -74,7 +74,8 @@ function GestorDashboard() {
         <div className="lista-cards">
           {campanhas.length > 0 ? (
             campanhas.map(campanha => (
-              <div key={campanha.id} className="cartao-item">
+              // O Link ainda envolve o card inteiro
+              <Link key={campanha.id} to={`/gestor/campanhas/${campanha.id}`} className="cartao-item" style={{textDecoration: 'none'}}>
                 <div className="cartao-info-principal">
                   <span className="cartao-titulo">{campanha.titulo}</span>
                   <span className="cartao-subtitulo">
@@ -83,23 +84,34 @@ function GestorDashboard() {
                 </div>
                 <div className="cartao-info-secundaria">
                   <span className="cartao-status">Meta: {campanha.meta_doacoes || 'N/A'}</span>
+                  
                   <div className="menu-acoes" onClick={(e) => e.stopPropagation()}>
-                    <button className="botao-menu-card" onClick={() => toggleMenu(campanha.id)}>
+                    <button className="botao-menu-card" onClick={(e) => {
+                        e.preventDefault(); // Previne a ação padrão do Link
+                        e.stopPropagation(); // Impede o clique de "borbulhar" para o Link
+                        toggleMenu(campanha.id);
+                      }}>
                       <i className="fas fa-ellipsis-v"></i>
                     </button>
                     <div className={`menu-suspenso ${menuAbertoId === campanha.id ? 'mostrar' : ''}`}>
-                      <button className="opcao-menu" onClick={() => navigate(`/gestor/campanhas/editar/${campanha.id}`)}>
+                      <button className="opcao-menu" onClick={(e) => {
+                          e.preventDefault();
+                          navigate(`/gestor/campanhas/editar/${campanha.id}`);
+                        }}>
                         <i className="fas fa-edit"></i>
                         <span>Editar</span>
                       </button>
-                      <button className="opcao-menu" onClick={() => handleDeletar(campanha.id)}>
+                      <button className="opcao-menu" onClick={(e) => {
+                          e.preventDefault();
+                          handleDeletar(campanha.id);
+                        }}>
                         <i className="fas fa-trash-alt"></i>
                         <span>Deletar</span>
                       </button>
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))
           ) : (
             <p>Nenhuma campanha encontrada. Clique em "Nova Campanha" para começar.</p>
@@ -109,5 +121,6 @@ function GestorDashboard() {
     </div>
   );
 }
+
 
 export default GestorDashboard;
