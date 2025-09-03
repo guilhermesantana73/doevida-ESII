@@ -330,7 +330,271 @@ body {
     font-weight: 500;
 }
 
-/* Ajuste para o botão de "Finalizar Triagem" */
 .cartao-triagem .botao-entrar {
   margin-top: 30px;
+}
+
+/* Adicione ao final de src/styles/global.css - Estilos do Dashboard do Gestor */
+
+.botao-adicionar {
+    background-color: var(--vermelho-escuro);
+    color: var(--branco);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+
+.botao-adicionar:hover {
+    background-color: #6a0000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.lista-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cartao-item {
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.cartao-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cartao-info-principal {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cartao-titulo {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.cartao-subtitulo {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.cartao-info-secundaria {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.cartao-status {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.botao-menu-card {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: #666;
+    padding: 8px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.botao-menu-card:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.formulario-cadastro {
+    background-color: var(--branco);
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.grupo-campo {
+    margin-bottom: 25px;
+}
+
+.grupo-campo label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--preto);
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+/* Reutiliza o .campo-entrada que já temos, mas podemos adicionar especificidades se necessário */
+
+.campo-descricao {
+    width: 100%;
+    padding: 15px 20px;
+    border: none;
+    background-color: #f0f0f0; /* Usando a cor do nosso campo-entrada padrão */
+    border-radius: 20px;
+    font-size: 1rem;
+    resize: vertical;
+    min-height: 120px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    outline: none;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.container-botao {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.botao-cadastrar {
+    background-color: var(--vermelho-escuro);
+    color: var(--branco);
+    border: none;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(154, 13, 13, 0.3);
+    width: 100%;
+    max-width: 400px;
+}
+
+.botao-cadastrar:hover {
+    background-color: #7a0a0a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(154, 13, 13, 0.4);
+}
+
+
+.menu-acoes {
+    position: relative; /* Necessário para o menu suspenso */
+}
+
+.menu-suspenso {
+    position: absolute;
+    top: 100%; /* Aparece logo abaixo do botão */
+    right: 0;
+    background-color: var(--branco);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 8px 0;
+    width: 180px;
+    z-index: 10;
+    border: 1px solid var(--cinza-claro);
+    display: none; /* Escondido por padrão */
+}
+
+.menu-suspenso.mostrar {
+    display: block; /* Mostra o menu quando tem essa classe */
+}
+
+.opcao-menu {
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: #333;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+}
+
+.opcao-menu:hover {
+    background-color: var(--cinza-muito-claro);
+}
+
+.opcao-menu i {
+  width: 15px; /* Alinha os ícones */
+  margin-right: 5px;
+}
+
+.cartao-geral {
+    background-color: #e0e0e0;
+    border-radius: 50px;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.cartao-geral:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.info-esquerda {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.linha-superior {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.id-usuario, .tipo-usuario {
+    color: #616161;
+    font-size: 0.95rem;
+}
+
+.tipo-usuario {
+    font-weight: 600;
+}
+
+.info-direita {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.indicador-status {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.status-ativo { background-color: #4caf50; }
+.status-inativo { background-color: #ffc107; }
+.status-suspenso { background-color: #f44336; }
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 8px; 
 }

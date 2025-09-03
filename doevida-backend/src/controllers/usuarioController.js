@@ -1,4 +1,3 @@
-// src/controllers/usuarioController.js
 const db = require('../config/database');
 const bcrypt = require('bcryptjs');
 
@@ -112,6 +111,87 @@ exports.getPerfilUsuario = async (req, res) => {
         res.status(200).json(rows[0]);
     } catch (error) {
         console.error('Erro ao buscar perfil:', error);
+        res.status(500).json({ error: 'Erro interno do servidor.' });
+    }
+};
+
+exports.listarTodosUsuarios = async (req, res) => {
+    if (req.usuario.tipo !== 'ADMINISTRADOR') {
+        return res.status(403).json({ error: 'Acesso negado.' });
+    }
+    try {
+        // Seleciona todos os usuários, exceto a própria senha hash
+        const { rows } = await db.query('SELECT id, nome, email, cpf, status, tipo_usuario, criado_em FROM usuarios ORDER BY nome');
+        res.status(200).json(rows);
+    } catch (error) {
+        console.error('Erro ao listar usuários:', error);
+        res.status(500).json({ error: 'Erro interno do servidor.' });
+    }
+};
+
+exports.atualizarStatusUsuario = async (req, res) => {
+    if (req.usuario.tipo !== 'ADMINISTRADOR') {
+        return res.status(403).json({ error: 'Acesso negado.' });
+    }
+
+    const { id } = req.params; // ID do usuário a ser modificado
+    const { status } = req.body; // Novo status (ex: 'SUSPENSO', 'ATIVO')
+
+    // Validação simples
+    if (!status || !['ATIVO', 'INATIVO', 'SUSPENSO'].includes(status)) {
+        return res.status(400).json({ error: 'Status inválido.' });
+    }
+
+    try {
+        const resultado = await db.query(
+            'UPDATE usuarios SET status = $1 WHERE id = $2 RETURNING id, status',
+            [status, id]
+        );
+        if (resultado.rowCount === 0) {
+            return res.status(404).json({ error: 'Usuário não encontrado.' });
+        }
+        res.status(200).json(resultado.rows[0]);
+    } catch (error) {
+        console.error('Erro ao atualizar status do usuário:', error);
+        res.status(500).json({ error: 'Erro interno do servidor.' });
+    }
+};
+
+
+exports.deletarUsuario = async (req, res) => {
+    if (req.usuario.tipo !== 'ADMINISTRADOR') {
+        return res.status(403).json({ error: 'Acesso negado.' });
+    }
+
+    const { id } = req.params;
+
+    if (Number(id) === req.usuario.id) {
+        return res.status(403).json({ error: 'Você não pode deletar sua própria conta de administrador.' });
+    }
+
+    try {
+        // Passo 1: Buscar o usuário que será deletado para saber seu tipo
+        const { rows: userRows } = await db.query('SELECT tipo_usuario FROM usuarios WHERE id = $1', [id]);
+        if (userRows.length === 0) {
+            return res.status(404).json({ error: 'Usuário não encontrado.' });
+        }
+        const userToDelete = userRows[0];
+
+        // Passo 2: Se o usuário for um GESTOR, verificar se ele tem campanhas
+        if (userToDelete.tipo_usuario === 'GESTOR') {
+            const { rows: campanhaRows } = await db.query('SELECT id FROM campanhas WHERE fk_gestor_id = $1', [id]);
+            if (campanhaRows.length > 0) {
+                // Se ele tiver campanhas, retorna um erro amigável em vez de quebrar
+                return res.status(409).json({ error: 'Este gestor não pode ser removido pois ainda possui campanhas associadas.' }); // 409 Conflict
+            }
+        }
+        
+        // Passo 3: Se todas as verificações passarem, deletar o usuário
+        await db.query('DELETE FROM usuarios WHERE id = $1', [id]);
+        res.status(204).send();
+
+    } catch (error) {
+        console.error('Erro ao deletar usuário:', error);
         res.status(500).json({ error: 'Erro interno do servidor.' });
     }
 };

@@ -13,4 +13,11 @@ router.post('/login', usuarioController.loginUsuario);
 // Ele é o "segurança na porta".
 router.get('/perfil', authMiddleware, usuarioController.getPerfilUsuario);
 
+// Rota protegida para o admin listar todos os usuários
+router.get('/', authMiddleware, usuarioController.listarTodosUsuarios);
+
+router.patch('/:id/status', authMiddleware, usuarioController.atualizarStatusUsuario);
+
+router.delete('/:id', authMiddleware, usuarioController.deletarUsuario);
+
 module.exports = router;
