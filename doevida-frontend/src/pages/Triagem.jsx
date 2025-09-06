@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 function Triagem() {
   const navigate = useNavigate();
   const [respostas, setRespostas] = useState({
-    peso: '', // Adicionando o peso ao estado
+    peso: '', 
     tatuagem_piercing: null,
     infeccoes_sexuais: null,
     procedimento_endoscopico: null,
@@ -12,14 +12,11 @@ function Triagem() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // **** A FUNÇÃO QUE ESTAVA FALTANDO ESTÁ AQUI ****
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     if (type === 'radio') {
-      // Converte a string 'true'/'false' dos radios para boolean
       setRespostas(prev => ({ ...prev, [name]: value === 'true' }));
     } else {
-      // Para outros campos como o de peso
       setRespostas(prev => ({ ...prev, [name]: value }));
     }
   };
@@ -29,7 +26,6 @@ function Triagem() {
     setError('');
     setLoading(true);
 
-    // Lógica de validação (adaptada para os novos nomes de estado)
     if (!respostas.peso || respostas.tatuagem_piercing === null || respostas.infeccoes_sexuais === null || respostas.procedimento_endoscopico === null) {
       setError('Por favor, preencha todos os campos.');
       setLoading(false);
@@ -60,7 +56,6 @@ function Triagem() {
         {error && <p className="error-message">{error}</p>}
 
         <form onSubmit={handleSubmit}>
-          {/* Campo de Peso adicionado aqui para consistência */}
           <div className="secao-triagem">
             <div className="grupo-pergunta">
               <p className="pergunta">Qual seu peso atual (kg)?</p>

@@ -2,33 +2,33 @@ const db = require('../config/database');
 const bcrypt = require('bcryptjs');
 
 exports.cadastrarDoador = async (req, res) => {
-    // 1. Extrair dados do corpo da requisição (o que o frontend envia)
+    // Extração dados do corpo da requisição (o que o frontend envia)
     const { nome, email, cpf, senha, tipo_sanguineo } = req.body;
 
-    // 2. Validação simples dos dados
+    // Validação simples dos dados
     if (!nome || !email || !cpf || !senha) {
         return res.status(400).json({ error: 'Todos os campos são obrigatórios: nome, email, cpf e senha.' });
     }
 
     try {
-        // 3. Verificar se o email ou CPF já existem (RN02)
+        // Verificação se o email ou CPF já existem
         const checkUser = await db.query('SELECT * FROM usuarios WHERE email = $1 OR cpf = $2', [email, cpf]);
         if (checkUser.rows.length > 0) {
             return res.status(409).json({ error: 'Email ou CPF já cadastrado.' }); // 409 Conflict
         }
 
-        // 4. Criptografar a senha
+        // Criptografar a senha
         const salt = await bcrypt.genSalt(10); // Gera uma "dificuldade" para o hash
         const senhaHash = await bcrypt.hash(senha, salt);
 
-        // 5. Salvar o novo usuário no banco de dados
+        // Salvar o novo usuário no banco de dados
         const novoUsuario = await db.query(
             `INSERT INTO usuarios (nome, email, cpf, senha_hash, tipo_usuario, tipo_sanguineo, status) 
              VALUES ($1, $2, $3, $4, 'DOADOR', $5, 'ATIVO') RETURNING id, nome, email, tipo_usuario`,
             [nome, email, cpf, senhaHash, tipo_sanguineo]
         );
 
-        // 6. Enviar uma resposta de sucesso
+        // Enviar uma resposta de sucesso
         res.status(201).json({
             message: 'Doador cadastrado com sucesso!',
             usuario: novoUsuario.rows[0]
@@ -40,13 +40,8 @@ exports.cadastrarDoador = async (req, res) => {
     }
 };
 
-// src/controllers/usuarioController.js
-// ... (imports do 'db' e 'bcrypt' já existem) ...
-const jwt = require('jsonwebtoken'); // Adicione este import
+const jwt = require('jsonwebtoken'); 
 
-// ... (sua função cadastrarDoador fica aqui) ...
-
-// Nova função de login
 exports.loginUsuario = async (req, res) => {
     const { email, senha } = req.body;
 
@@ -55,7 +50,7 @@ exports.loginUsuario = async (req, res) => {
     }
 
     try {
-        // 1. Procurar o usuário pelo email
+        // Procurar o usuário pelo email
         const { rows } = await db.query('SELECT * FROM usuarios WHERE email = $1', [email]);
         const usuario = rows[0];
 
@@ -64,14 +59,14 @@ exports.loginUsuario = async (req, res) => {
             return res.status(401).json({ error: 'Credenciais inválidas.' });
         }
 
-        // 2. Comparar a senha enviada com o hash salvo no banco
+        // Comparar a senha enviada com o hash salvo no banco
         const senhaCorreta = await bcrypt.compare(senha, usuario.senha_hash);
 
         if (!senhaCorreta) {
             return res.status(401).json({ error: 'Credenciais inválidas.' });
         }
 
-        // 3. Se a senha estiver correta, gerar o token JWT (o crachá)
+        // Se a senha estiver correta, gerar o token JWT (o crachá)
         const payload = {
             id: usuario.id,
             tipo: usuario.tipo_usuario
@@ -83,7 +78,7 @@ exports.loginUsuario = async (req, res) => {
             { expiresIn: '1h' } // O crachá expira em 1 hora
         );
 
-        // 4. Enviar o token para o cliente
+        // Enviar o token para o cliente
         res.status(200).json({
             message: 'Login bem-sucedido!',
             token: token
@@ -95,13 +90,12 @@ exports.loginUsuario = async (req, res) => {
     }
 };
 
-// Nova função para buscar o perfil
 exports.getPerfilUsuario = async (req, res) => {
     try {
-        // O ID do usuário foi adicionado ao 'req' pelo nosso middleware
+        // O ID do usuário foi adicionado ao 'req' pelo middleware
         const userId = req.usuario.id;
 
-        // Buscamos o usuário no banco para garantir que os dados estão atualizados
+        // Busca o usuário no banco para garantir que os dados estão atualizados
         const { rows } = await db.query('SELECT id, nome, email, cpf, tipo_usuario, tipo_sanguineo FROM usuarios WHERE id = $1', [userId]);
 
         if (rows.length === 0) {
@@ -135,7 +129,7 @@ exports.atualizarStatusUsuario = async (req, res) => {
     }
 
     const { id } = req.params; // ID do usuário a ser modificado
-    const { status } = req.body; // Novo status (ex: 'SUSPENSO', 'ATIVO')
+    const { status } = req.body; 
 
     // Validação simples
     if (!status || !['ATIVO', 'INATIVO', 'SUSPENSO'].includes(status)) {
@@ -170,14 +164,14 @@ exports.deletarUsuario = async (req, res) => {
     }
 
     try {
-        // Passo 1: Buscar o usuário que será deletado para saber seu tipo
+        // Busca o usuário que será deletado para saber seu tipo
         const { rows: userRows } = await db.query('SELECT tipo_usuario FROM usuarios WHERE id = $1', [id]);
         if (userRows.length === 0) {
             return res.status(404).json({ error: 'Usuário não encontrado.' });
         }
         const userToDelete = userRows[0];
 
-        // Passo 2: Se o usuário for um GESTOR, verificar se ele tem campanhas
+        // Se o usuário for um GESTOR, verificar se ele tem campanhas
         if (userToDelete.tipo_usuario === 'GESTOR') {
             const { rows: campanhaRows } = await db.query('SELECT id FROM campanhas WHERE fk_gestor_id = $1', [id]);
             if (campanhaRows.length > 0) {
@@ -186,7 +180,7 @@ exports.deletarUsuario = async (req, res) => {
             }
         }
         
-        // Passo 3: Se todas as verificações passarem, deletar o usuário
+        // Se todas as verificações passarem, deletar o usuário
         await db.query('DELETE FROM usuarios WHERE id = $1', [id]);
         res.status(204).send();
 
@@ -201,8 +195,6 @@ exports.deletarUsuario = async (req, res) => {
 
     const { id } = req.params; // ID do usuário a ser deletado
 
-    // Regra de negócio: Admin não pode deletar a própria conta
-    // Convertemos para Number para garantir a comparação correta
     if (Number(id) === req.usuario.id) {
         return res.status(403).json({ error: 'Você não pode deletar sua própria conta de administrador.' });
     }

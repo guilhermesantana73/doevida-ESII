@@ -6,7 +6,7 @@ function GestorDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [menuAbertoId, setMenuAbertoId] = useState(null);
-  const navigate = useNavigate(); // Agora esta linha funciona
+  const navigate = useNavigate(); 
 
 
   useEffect(() => {
@@ -74,7 +74,6 @@ function GestorDashboard() {
         <div className="lista-cards">
           {campanhas.length > 0 ? (
             campanhas.map(campanha => (
-              // O Link ainda envolve o card inteiro
               <Link key={campanha.id} to={`/gestor/campanhas/${campanha.id}`} className="cartao-item" style={{textDecoration: 'none'}}>
                 <div className="cartao-info-principal">
                   <span className="cartao-titulo">{campanha.titulo}</span>
@@ -87,8 +86,8 @@ function GestorDashboard() {
                   
                   <div className="menu-acoes" onClick={(e) => e.stopPropagation()}>
                     <button className="botao-menu-card" onClick={(e) => {
-                        e.preventDefault(); // Previne a ação padrão do Link
-                        e.stopPropagation(); // Impede o clique de "borbulhar" para o Link
+                        e.preventDefault(); 
+                        e.stopPropagation(); 
                         toggleMenu(campanha.id);
                       }}>
                       <i className="fas fa-ellipsis-v"></i>

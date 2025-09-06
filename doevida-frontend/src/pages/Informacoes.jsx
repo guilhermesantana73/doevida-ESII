@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/informacoes.css'; // Novo CSS para esta página
+import '../styles/informacoes.css'; 
 
 function Informacoes() {
   const navigate = useNavigate();

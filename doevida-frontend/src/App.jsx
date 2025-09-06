@@ -1,4 +1,3 @@
-// src/App.jsx
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
@@ -21,7 +20,6 @@ import Beneficios from './pages/Beneficios.jsx';
 import Informacoes from './pages/Informacoes.jsx';
 
 // Página de Placeholder
-import PlaceholderPage from './pages/PlaceholderPage';
 import CriarCampanha from './pages/Gestor/CriarCampanha';
 import EditarCampanha from './pages/Gestor/EditarCampanha';
 import MonitorarCampanha from './pages/Gestor/MonitorarCampanha';

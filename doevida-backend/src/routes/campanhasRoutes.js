@@ -1,4 +1,3 @@
-// src/routes/campanhasRoutes.js - VERSÃO COM ORDEM CORRIGIDA
 const express = require('express');
 const router = express.Router();
 const campanhaController = require('../controllers/campanhaController');

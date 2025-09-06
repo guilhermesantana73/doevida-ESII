@@ -1,4 +1,3 @@
-// src/controllers/doacaoController.js
 const db = require('../config/database');
 
 exports.agendarDoacao = async (req, res) => {
@@ -15,8 +14,7 @@ exports.agendarDoacao = async (req, res) => {
     }
 
     try {
-        // --- INÍCIO DA REGRA DE NEGÓCIO (RN01) ---
-        // 1. Buscar a data da última doação do usuário.
+        // Busca a data da última doação do usuário.
         const { rows: usuarioRows } = await db.query('SELECT data_ultima_doacao FROM usuarios WHERE id = $1', [doadorId]);
         const dataUltimaDoacao = usuarioRows[0].data_ultima_doacao;
 
@@ -24,15 +22,14 @@ exports.agendarDoacao = async (req, res) => {
             const dataAtual = new Date();
             const ultimaDoacao = new Date(dataUltimaDoacao);
             
-            // 2. Calcular a diferença de dias.
+            // Calcula a diferença de dias.
             // A OMS recomenda intervalos diferentes para homens e mulheres.
-            // Para simplificar aqui, vamos usar um intervalo fixo de 90 dias, mas isso
-            // poderia ser mais complexo (ex: verificar o sexo do doador no cadastro).
+            // Para simplificar aqui, vamos usar um intervalo fixo de 90 dias
             const intervaloMinimoDias = 90; 
             const diffTime = Math.abs(dataAtual - ultimaDoacao);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-            // 3. Bloquear se o intervalo for menor que o permitido.
+            // Bloquea se o intervalo for menor que o permitido.
             if (diffDays < intervaloMinimoDias) {
                 const diasRestantes = intervaloMinimoDias - diffDays;
                 return res.status(403).json({ 
@@ -40,9 +37,8 @@ exports.agendarDoacao = async (req, res) => {
                 });
             }
         }
-        // --- FIM DA REGRA DE NEGÓCIO ---
 
-        // 4. Se a regra passar, agendar a nova doação.
+        // Se passar na regra, agendar a nova doação.
         const novaDoacao = await db.query(
             `INSERT INTO doacoes (fk_doador_id, fk_campanha_id, data_agendamento, local_doacao, status)
              VALUES ($1, $2, $3, $4, 'AGENDADA') RETURNING *`,
@@ -61,14 +57,14 @@ exports.agendarDoacao = async (req, res) => {
 };
 
 
-// Nova função para LISTAR as doações do usuário logado
+// Função para LISTAR as doações do usuário logado
 exports.listarMinhasDoacoes = async (req, res) => {
     // O ID do doador vem do token, que foi validado pelo middleware
     const doadorId = req.usuario.id;
 
     try {
         // Seleciona todas as doações pertencentes ao doador logado
-        // Ordenamos pela data de agendamento para mostrar as mais recentes/próximas primeiro
+        // Ordenado pela data de agendamento para mostrar as mais recentes/próximas primeiro
         const { rows } = await db.query(
             'SELECT * FROM doacoes WHERE fk_doador_id = $1 ORDER BY data_agendamento DESC',
             [doadorId]
@@ -95,7 +91,7 @@ exports.buscarDoacaoPorId = async (req, res) => {
         );
 
         if (rows.length === 0) {
-            // Retornamos 404 se a doação não existe OU não pertence ao usuário.
+            // Retorno de 404 se a doação não existe OU não pertence ao usuário.
             // Não damos detalhes por questões de segurança.
             return res.status(404).json({ error: 'Agendamento de doação não encontrado.' });
         }
@@ -114,7 +110,7 @@ exports.cancelarDoacao = async (req, res) => {
     const doadorId = req.usuario.id;    // ID do doador vindo do token
 
     try {
-        // 1. Primeiro, busca a doação para garantir que ela pertence ao usuário e está agendada
+        // Busca a doação para garantir que ela pertence ao usuário e está agendada
         const { rows } = await db.query(
             "SELECT * FROM doacoes WHERE id = $1 AND fk_doador_id = $2 AND status = 'AGENDADA'",
             [doacaoId, doadorId]
@@ -126,8 +122,7 @@ exports.cancelarDoacao = async (req, res) => {
         
         const doacao = rows[0];
 
-        // --- INÍCIO DA REGRA DE NEGÓCIO (RN05) ---
-        // 2. Verifica se o cancelamento está dentro do prazo permitido
+        // Verificação se o cancelamento está dentro do prazo permitido
         const agora = new Date();
         const dataAgendamento = new Date(doacao.data_agendamento);
         const diffHoras = (dataAgendamento - agora) / (1000 * 60 * 60);
@@ -137,9 +132,8 @@ exports.cancelarDoacao = async (req, res) => {
                 error: 'Cancelamento não permitido. O prazo para cancelar é de até 24 horas antes do agendamento.' 
             });
         }
-        // --- FIM DA REGRA DE NEGÓCIO ---
 
-        // 3. Se a regra passar, atualiza o status para 'CANCELADA'
+        // Se a regra passar, atualiza o status para 'CANCELADA'
         const doacaoCancelada = await db.query(
             "UPDATE doacoes SET status = 'CANCELADA' WHERE id = $1 RETURNING *",
             [doacaoId]

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/beneficios.css'; // Novo CSS
+import '../styles/beneficios.css'; 
 
 function Beneficios() {
   const [beneficios, setBeneficios] = useState([]);

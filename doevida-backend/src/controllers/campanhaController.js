@@ -74,7 +74,6 @@ exports.buscarCampanhaPorId = async (req, res) => {
     }
 };
 
-// >>>>> CÓDIGO QUE ESTAVA FALTANDO <<<<<
 // Função para atualizar uma campanha
 exports.atualizarCampanha = async (req, res) => {
     if (req.usuario.tipo !== 'GESTOR') {

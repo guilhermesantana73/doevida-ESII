@@ -15,7 +15,7 @@ function Historico() {
       }
 
       try {
-        // Usamos o mesmo endpoint que já usamos no dashboard
+        // Uo mesmo endpoint do dashboard
         const response = await fetch('http://localhost:3000/api/doacoes/me', {
           headers: { 'Authorization': `Bearer ${token}` }
         });

@@ -16,7 +16,6 @@ body {
     background-color: var(--cinza-claro);
 }
 
-/* Estilos do Login Card (extraídos de tela_login.html) */
 .container-login {
     flex: 1;
     display: flex;
@@ -132,8 +131,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* Adicione ao final de src/styles/global.css */
-
 .page-container {
   width: 100%;
   max-width: 1200px;
@@ -226,17 +223,15 @@ body {
     margin-top: 0; 
 }
 
-/* Adicione ao final de src/styles/global.css */
-
 .cartao-triagem {
     background-color: var(--branco);
     width: 100%;
-    max-width: 600px; /* Um pouco mais largo que o login para acomodar perguntas */
+    max-width: 600px; 
     padding: 40px 30px;
     border-radius: 30px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
     text-align: center;
-    margin: 40px auto; /* Centraliza verticalmente e horizontalmente */
+    margin: 40px auto; 
 }
 
 .titulo-triagem {
@@ -282,7 +277,7 @@ body {
 .opcoes-radio {
     display: flex;
     gap: 30px;
-    justify-content: center; /* Centraliza as opções "Sim" e "Não" */
+    justify-content: center; 
 }
 
 .opcao-radio {
@@ -294,7 +289,6 @@ body {
 }
 
 .opcao-radio input[type="radio"] {
-    /* Estiliza o rádio button nativo para ficar mais discreto */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -333,8 +327,6 @@ body {
 .cartao-triagem .botao-entrar {
   margin-top: 30px;
 }
-
-/* Adicione ao final de src/styles/global.css - Estilos do Dashboard do Gestor */
 
 .botao-adicionar {
     background-color: var(--vermelho-escuro);
@@ -450,13 +442,11 @@ body {
     font-size: 1.1rem;
 }
 
-/* Reutiliza o .campo-entrada que já temos, mas podemos adicionar especificidades se necessário */
-
 .campo-descricao {
     width: 100%;
     padding: 15px 20px;
     border: none;
-    background-color: #f0f0f0; /* Usando a cor do nosso campo-entrada padrão */
+    background-color: #f0f0f0; 
     border-radius: 20px;
     font-size: 1rem;
     resize: vertical;
@@ -495,12 +485,12 @@ body {
 
 
 .menu-acoes {
-    position: relative; /* Necessário para o menu suspenso */
+    position: relative; 
 }
 
 .menu-suspenso {
     position: absolute;
-    top: 100%; /* Aparece logo abaixo do botão */
+    top: 100%; 
     right: 0;
     background-color: var(--branco);
     border-radius: 8px;
@@ -509,11 +499,11 @@ body {
     width: 180px;
     z-index: 10;
     border: 1px solid var(--cinza-claro);
-    display: none; /* Escondido por padrão */
+    display: none; 
 }
 
 .menu-suspenso.mostrar {
-    display: block; /* Mostra o menu quando tem essa classe */
+    display: block; 
 }
 
 .opcao-menu {
@@ -536,7 +526,7 @@ body {
 }
 
 .opcao-menu i {
-  width: 15px; /* Alinha os ícones */
+  width: 15px; 
   margin-right: 5px;
 }
 

@@ -1,4 +1,3 @@
-// src/controllers/organizacaoController.js
 const db = require('../config/database');
 
 exports.cadastrarOrganizacao = async (req, res) => {
@@ -14,7 +13,7 @@ exports.cadastrarOrganizacao = async (req, res) => {
     }
 
     try {
-        // Regra de Negócio: Verificar se o CNPJ já está cadastrado
+        // Verificar se o CNPJ já está cadastrado
         const { rows: cnpjExistente } = await db.query('SELECT id FROM organizacoes_parceiras WHERE cnpj = $1', [cnpj]);
         if (cnpjExistente.length > 0) {
             return res.status(409).json({ error: 'Este CNPJ já está cadastrado.' });
@@ -68,7 +67,7 @@ exports.buscarOrganizacaoPorId = async (req, res) => {
 
 // Função para ATUALIZAR uma organização
 exports.atualizarOrganizacao = async (req, res) => {
-    // Autorização: Apenas Administradores
+    // Apenas Administradores
     if (req.usuario.tipo !== 'ADMINISTRADOR') {
         return res.status(403).json({ error: 'Acesso negado. Apenas administradores podem realizar esta ação.' });
     }
@@ -104,7 +103,7 @@ exports.atualizarOrganizacao = async (req, res) => {
 
 // Função para DELETAR uma organização
 exports.deletarOrganizacao = async (req, res) => {
-    // Autorização: Apenas Administradores
+    // Apenas Administradores
     if (req.usuario.tipo !== 'ADMINISTRADOR') {
         return res.status(403).json({ error: 'Acesso negado. Apenas administradores podem realizar esta ação.' });
     }
@@ -115,7 +114,7 @@ exports.deletarOrganizacao = async (req, res) => {
         if (resultado.rowCount === 0) {
             return res.status(404).json({ error: 'Organização não encontrada.' });
         }
-        // Graças à regra ON DELETE CASCADE no seu schema, 
+        // Graças à regra ON DELETE CASCADE no schema, 
         // todos os serviços associados a esta OP também serão removidos.
         res.status(204).send();
     } catch (error) {

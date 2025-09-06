@@ -1,7 +1,6 @@
-// src/components/Footer.jsx
 import React from 'react';
-import { Link } from 'react-router-dom'; // Use Link em vez de <a>
-import '../styles/login.css'; // Supondo que o estilo do rodapé está aqui
+import { Link } from 'react-router-dom'; 
+import '../styles/login.css'; 
 
 function Footer() {
   return (

@@ -1,8 +1,5 @@
-// src/pages/Login.jsx
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-
-// Não precisamos mais importar CSS específico aqui, pois o global.css já foi importado no main.jsx
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -10,7 +7,6 @@ function Login() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // NOSSA LÓGICA DE LOGIN QUE JÁ FUNCIONA PERMANECE EXATAMENTE A MESMA
   const handleLogin = async (event) => {
     event.preventDefault();
     setError('');
@@ -35,7 +31,6 @@ function Login() {
     }
   };
 
-  // A MUDANÇA ESTÁ TODA AQUI NO JSX ABAIXO, USANDO AS CLASSES DO NOVO DESIGN
   return (
     <div className="container-login">
       <div className="cartao-login">

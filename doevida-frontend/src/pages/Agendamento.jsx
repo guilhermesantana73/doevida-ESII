@@ -22,7 +22,7 @@ function Agendamento() {
     }
 
     try {
-      // Conecta com o endpoint que já tínhamos criado no backend!
+      // Conecta com o endpoint no backend!
       const response = await fetch("http://localhost:3000/api/doacoes", {
         method: "POST",
         headers: {

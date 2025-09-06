@@ -7,14 +7,14 @@ import AdminDashboard from './AdminDashboard';
 function DashboardPage() {
   const token = localStorage.getItem('token');
 
-  // Se não houver token, não renderiza nada (a RotaProtegida já deve ter redirecionado)
+  // Se não houver token, não renderiza nada 
   if (!token) {
     return null;
   }
 
-  // Decodifica o token para extrair as informações (o payload)
+  // Decodifica o token para extrair as informações 
   const userData = jwtDecode(token);
-  const userType = userData.tipo; // Lembre-se que no backend definimos o campo como 'tipo'
+  const userType = userData.tipo; 
 
   // Renderiza o dashboard correto com base no tipo do usuário
   switch (userType) {

@@ -1,8 +1,7 @@
-// src/controllers/servicoController.js
 const db = require('../config/database');
 
 exports.criarServico = async (req, res) => {
-    // Autorização: Apenas Administradores
+    // Apenas Administradores
     if (req.usuario.tipo !== 'ADMINISTRADOR') {
         return res.status(403).json({ error: 'Acesso negado. Apenas administradores podem realizar esta ação.' });
     }
@@ -28,7 +27,7 @@ exports.criarServico = async (req, res) => {
         });
 
     } catch (error) {
-        // Erro comum: fk_op_id não existe. O PostgreSQL retornará um erro de foreign key.
+        // Um erro comum aconteceu aqui "fk_op_id não existe". O PostgreSQL retornará um erro de foreign key.
         if (error.code === '23503') { // foreign_key_violation
             return res.status(404).json({ error: 'Organização Parceira não encontrada.' });
         }
@@ -52,7 +51,6 @@ exports.listarServicosDaOrganizacao = async (req, res) => {
 
 // Função para ATUALIZAR um serviço específico
 exports.atualizarServico = async (req, res) => {
-    // Autorização
     if (req.usuario.tipo !== 'ADMINISTRADOR') {
         return res.status(403).json({ error: 'Acesso negado. Apenas administradores podem realizar esta ação.' });
     }
@@ -87,7 +85,6 @@ exports.atualizarServico = async (req, res) => {
 
 // Função para DELETAR um serviço específico
 exports.deletarServico = async (req, res) => {
-    // Autorização
     if (req.usuario.tipo !== 'ADMINISTRADOR') {
         return res.status(403).json({ error: 'Acesso negado. Apenas administradores podem realizar esta ação.' });
     }
@@ -111,7 +108,7 @@ exports.deletarServico = async (req, res) => {
 exports.listarTodosServicos = async (req, res) => {
     try {
         // Este comando SQL une as tabelas 'servicos' e 'organizacoes_parceiras'
-        // para que possamos ter o nome da OP junto com os detalhes do serviço.
+        // para que a gente possater o nome da OP junto com os detalhes do serviço.
         const { rows } = await db.query(
             `SELECT 
                 s.id, s.titulo, s.descricao, op.nome_fantasia 

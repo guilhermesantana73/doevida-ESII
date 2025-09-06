@@ -26,7 +26,6 @@ function Dashboard() {
         const data = await response.json();
         setDoacoes(data);
 
-        // --- LÓGICA PARA ACHAR A PRÓXIMA DOAÇÃO ---
         const agendadas = data
           .filter(d => d.status === 'AGENDADA' && new Date(d.data_agendamento) > new Date())
           .sort((a, b) => new Date(a.data_agendamento) - new Date(b.data_agendamento));
@@ -34,7 +33,6 @@ function Dashboard() {
         if (agendadas.length > 0) {
           setProximaDoacao(agendadas[0]); // A primeira da lista ordenada é a próxima
         }
-        // --- FIM DA LÓGICA ---
         
       } catch (err) {
         setError(err.message);
@@ -76,12 +74,10 @@ function Dashboard() {
 
       <div className="dashboard-section">
         <h2 className="section-title">Próxima Doação</h2>
-        {/* ... lógica para exibir a próxima doação ... */}
       </div>
 
       <div className="dashboard-section">
         <h2 className="section-title">Notificações</h2>
-        {/* ... notificações placeholder ... */}
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ function Cadastro() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); // Limpa erros anteriores
+    setError(''); 
 
     try {
       // Faz a chamada de API para o endpoint de cadastro
@@ -28,7 +28,7 @@ function Cadastro() {
         headers: {
           "Content-Type": "application/json",
         },
-        // O backend espera 'tipo_sanguineo', então renomeamos no objeto enviado
+        // O backend espera 'tipo_sanguineo', então é renomeado no objeto enviado
         body: JSON.stringify({
           nome: form.nome,
           cpf: form.cpf,

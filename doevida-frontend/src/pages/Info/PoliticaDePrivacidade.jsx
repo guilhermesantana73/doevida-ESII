@@ -1,6 +1,5 @@
-// src/pages/Info/SobreNos.jsx
 import React from 'react';
-import '../../styles/info-pages.css'; // Um novo CSS para essas páginas
+import '../../styles/info-pages.css'; 
 
 function PoliticaDePrivacidade() {
   return (

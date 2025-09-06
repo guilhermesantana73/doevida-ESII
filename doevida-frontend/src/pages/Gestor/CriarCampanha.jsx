@@ -7,7 +7,7 @@ function CriarCampanha() {
     data_inicio: '',
     data_termino: '',
     meta_doacoes: '',
-    descricao: '' // Adicionando descrição se necessário no futuro
+    descricao: '' 
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);

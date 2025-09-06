@@ -1,4 +1,3 @@
-// src/config/database.js
 const { Pool } = require('pg');
 require('dotenv').config();
 
@@ -9,7 +8,7 @@ const pool = new Pool({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     ssl: {
-        rejectUnauthorized: false // Necessário para conexões com o RDS em alguns ambientes
+        rejectUnauthorized: false 
     }
 });
 

@@ -1,9 +1,7 @@
-// src/routes/servicosRoutes.js
 const express = require('express');
 const servicoController = require('../controllers/servicoController');
 const authMiddleware = require('../middleware/authMiddleware');
 
-// Novidade: { mergeParams: true }
 // Isso permite que este router acesse parâmetros da rota pai (como o :orgId)
 const router = express.Router({ mergeParams: true });
 

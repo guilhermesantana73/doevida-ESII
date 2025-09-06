@@ -23,12 +23,10 @@ function Header() {
 
   return (
     <header className="cabecalho">
-      {/* 2. A logo agora é uma <img> clicável posicionada à esquerda */}
       <div onClick={handleHomeClick} style={{ cursor: 'pointer' }}>
         <img src={logoBranca} alt="Doevida Logo" className="header-logo" />
       </div>
 
-      {/* 3. O botão "Sair" estilizado só aparece se o usuário estiver autenticado */}
       {isAuthenticated && (
         <button onClick={handleLogout} className="header-logout-button">
           <i className="fas fa-sign-out-alt"></i>

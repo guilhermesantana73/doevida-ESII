@@ -47,7 +47,7 @@ function AdminDashboard() {
 
       // Atualiza a lista de usuários no frontend instantaneamente
       setUsuarios(usuarios.map(u => u.id === usuarioId ? { ...u, status: data.status } : u));
-      setMenuAbertoId(null); // Fecha o menu
+      setMenuAbertoId(null); 
     } catch (err) {
       alert(`Erro: ${err.message}`);
     }
@@ -65,7 +65,7 @@ function AdminDashboard() {
       });
 
       if (!response.ok) {
-        // Se o backend retornar um erro (ex: admin tentando se auto-deletar), ele será capturado
+        // Se o backend retornar um erro, ele será capturado
         const data = await response.json();
         throw new Error(data.error || 'Falha ao remover o usuário.');
       }
@@ -116,7 +116,6 @@ function AdminDashboard() {
                     <button className="opcao-menu">
                       <i className="fas fa-edit"></i><span>Editar</span>
                     </button>
-                    {/* Lógica condicional para o botão de status */}
                     {usuario.status === 'ATIVO' ? (
                       <button className="opcao-menu" onClick={() => handleStatusChange(usuario.id, 'SUSPENSO')}>
                         <i className="fas fa-ban"></i><span>Suspender</span>

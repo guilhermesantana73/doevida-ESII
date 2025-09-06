@@ -54,7 +54,6 @@ function AgendaCampanha() {
               <div className="data-hora">{new Date(d.data_agendamento).toLocaleString('pt-BR')}</div>
               <div className="doador">Doador: {d.nome_doador}</div>
             </div>
-            {/* ... Menu de ações pode ser adicionado aqui no futuro ... */}
           </div>
         )) : <p>Nenhum agendamento futuro.</p>}
       </section>
