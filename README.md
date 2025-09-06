@@ -138,4 +138,4 @@ Bash
 
     Guilherme Almeida Santana - guilhermesantana73
 
-    Rodrigo Santos França - (Link do GitHub do Rodrigo aqui, se aplicável)
+    Rodrigo Santos França - Ruifranca8
