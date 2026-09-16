@@ -96,6 +96,11 @@ doevida-ESII/
 │   ├── src/                  # Componentes, páginas, hooks
 │   └── vite.config.js
 └── README.md
+├── docs/
+│   ├── Documento I - Requisitos, Arquitetura e Projeto (Doevida).pdf            # Diagrama de fluxo, estrutura do banco
+│   ├── Documento II - Visão, Requisitos, Análise e Planejamento - Doevida.pdf   # Arquitetura, primeiros feedbacks
+│   ├── postgres - doevida.png                                                   # Relacionamentos do BD
+│   ├── postgres - doevida - DER.png                                             # DER do Banco de Dados
 ```
 
 ---
