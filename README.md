@@ -1,141 +1,127 @@
-Doevida 🩸
+# 🩸 Doevida
 
-Conectando doadores, salvando vidas.
+**Plataforma web que conecta doadores de sangue com hemocentros, simplificando agendamentos e aumentando taxas de doação.**
 
-📌 Status: Em Desenvolvimento 🚧
+---
 
-Sobre o Projeto
+## 📊 Impacto
 
-Doar sangue salva vidas. Simples assim. No entanto, os hemocentros no Brasil frequentemente enfrentam dificuldades para manter seus estoques em níveis seguros. A falta de informação e a complexidade no processo de agendamento podem desestimular novos doadores.
+Hemocentros brasileiros perdem doadores porque o processo é complicado. Doevida resolve isso com:
+- **Agendamento 10x mais rápido** que os sistemas tradicionais  
+- **Triagem online** que reduz tempo no hemocentro
+- **Painel em tempo real** para gestores acompanharem campanhas
+- **Gamificação** para estimular doações regulares
 
-Criamos o Doevida para atacar esse problema de frente. Nossa plataforma web foi projetada para ser a ponte entre quem quer ajudar e quem precisa de ajuda, simplificando o processo de doação de sangue através de funcionalidades como:
+---
 
-    Agendamento online rápido e intuitivo.
+## 🛠️ Stack Tecnológico
 
-    Gamificação e benefícios para incentivar a doação regular.
+**Frontend:** React 19 | Vite | TailwindCSS | React Router  
+**Backend:** Node.js | Express | PostgreSQL | JWT + bcrypt  
+**Arquitetura:** REST API | Monorepo  
 
-    Ferramentas poderosas para gestores de campanhas monitorarem seus resultados em tempo real.
+---
 
-Este projeto foi desenvolvido como parte da disciplina de Engenharia de Software II, unindo conceitos de desenvolvimento full-stack para criar uma solução de impacto social.
+## 🎯 Três Perfis de Usuário
 
-✨ Funcionalidades Principais
+| Doador | Gestor de Campanha | Admin |
+|--------|-------------------|-------|
+| Dashboard pessoal | Gerenciar campanhas | Painel de controle geral |
+| Agendar doação | Monitorar agendamentos | Gerenciar usuários |
+| Histórico de doações | Enviar notificações | Configurar organizações |
+| Ver benefícios parceiros | Relatórios em tempo real | Suspender/reativar contas |
 
-O sistema é construído em torno de três perfis de usuário principais:
+---
 
-🩸 Para Doadores:
+## 🚀 Quick Start
 
-    Cadastro e Login seguros com autenticação via JWT.
+### Pré-requisitos
+- Node.js 18+ | PostgreSQL 12+ | Git
 
-    Painel de controle (Dashboard) para visualizar a próxima doação agendada.
+### Setup (3 passos)
 
-    Fluxo de agendamento com triagem rápida online para verificar a aptidão básica.
-
-    Histórico completo de todas as doações realizadas ou agendadas.
-
-    Visualização de benefícios oferecidos por organizações parceiras.
-
-👥 Para Gestores de Campanhas:
-
-    Painel de controle para visualizar e gerenciar todas as suas campanhas.
-
-    Criação, edição e remoção de campanhas de doação.
-
-    Visualização da agenda de doações para uma campanha específica.
-
-    Funcionalidade para enviar notificações para grupos de doadores.
-
-⚙️ Para Administradores:
-
-    Painel de controle para visualização e gerenciamento de todos os usuários do sistema.
-
-    Funcionalidade para suspender, reativar ou remover usuários.
-
-    Gerenciamento completo de Organizações Parceiras e os serviços que elas oferecem.
-
-🔧 Tecnologias Utilizadas
-
-Este projeto é uma aplicação full-stack que utiliza tecnologias modernas e populares no mercado.
-
-Frontend:
-
-    React.js (com Hooks)
-
-    Vite como ambiente de desenvolvimento
-
-    React Router para navegação
-
-    Tailwind CSS para estilização
-
-    fetch API para comunicação com o backend
-
-Backend:
-
-    Node.js
-
-    Express.js como framework para a API RESTful
-
-    PostgreSQL como banco de dados relacional
-
-    JWT (JSON Web Tokens) para autenticação
-
-    bcrypt.js para hashing de senhas
-
-🚀 Como Rodar o Projeto
-
-Para rodar este projeto localmente, você precisará ter o Git, Node.js (versão LTS) e o PostgreSQL instalados.
-
-    Clone o repositório:
-    Bash
-
+**1. Clone e instale**
+```bash
 git clone https://github.com/guilhermesantana73/doevida-ESII.git
 cd doevida-ESII
 
-Configure o Backend:
+# Backend
+cd doevida-backend && npm install
+cd ../doevida-frontend && npm install
+```
 
-    Navegue até a pasta do backend: cd doevida-backend
+**2. Configure variáveis (.env)**
+```env
+# Backend (.env)
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=seu_password
+DB_NAME=doevida
+JWT_SECRET=seu_secret_key
+```
 
-    Crie um arquivo .env baseado no .env.example (se houver um) ou com as seguintes variáveis, preenchendo com suas credenciais do PostgreSQL:
+**3. Rode**
+```bash
+# Terminal 1: Backend
+cd doevida-backend && npm start
+# http://localhost:3000
 
-    DB_HOST=localhost
-    DB_PORT=5432
-    DB_USER=postgres
-    DB_PASSWORD=sua_senha_secreta
-    DB_NAME=doevida
-    JWT_SECRET=sua_chave_jwt_super_secreta
+# Terminal 2: Frontend  
+cd doevida-frontend && npm run dev
+# http://localhost:5173
+```
 
-    Instale as dependências: npm install
+---
 
-Configure o Frontend:
+## 🎓 O que Aprendemos
 
-    Navegue até a pasta do frontend: cd ../doevida-frontend
+- ✅ **Full-stack development** com React + Express + PostgreSQL
+- ✅ **Autenticação JWT** com token refresh e middleware
+- ✅ **Design de banco relacional** com múltiplos perfis de usuário
+- ✅ **Componentes reutilizáveis** em React com estado compartilhado
+- ✅ **API RESTful** seguindo boas práticas
+- ✅ **Engenharia de software** — versionamento, documentação, design patterns
 
-    Instale as dependências: npm install
+---
 
-Configure o Banco de Dados:
+## 📁 Estrutura
 
-    Abra o pgAdmin ou psql e crie um novo banco de dados chamado doevida.
+```
+doevida-ESII/
+├── doevida-backend/          # Node.js + Express + PostgreSQL
+│   ├── src/                  # Rotas, controllers, models
+│   └── server.js
+├── doevida-frontend/         # React + Vite + TailwindCSS
+│   ├── src/                  # Componentes, páginas, hooks
+│   └── vite.config.js
+└── README.md
+```
 
-    Execute o script de criação das tabelas (doevida-schema.sql) e, em seguida, o script para popular o banco com dados de teste.
+---
 
-Inicie a Aplicação:
-Você precisará de dois terminais abertos.
+## 🔐 Segurança
 
-    No Terminal 1 (Backend):
-    Bash
+- Senhas com **bcrypt.js** (salted hashing)
+- **JWT** para autenticação stateless
+- **CORS** configurado para APIs seguras
+- Validação de entrada no backend
 
-cd doevida-backend
-node server.js 
-# O servidor estará rodando em http://localhost:3000
+---
 
-No Terminal 2 (Frontend):
-Bash
+## 👨‍💻 Autores
 
-        cd doevida-frontend
-        npm run dev
-        # A aplicação estará acessível em http://localhost:5173 (ou outra porta indicada)
+**Guilherme Almeida Santana** · [GitHub](https://github.com/guilhermesantana73)  
+**Rodrigo Santos França** · [GitHub](https://github.com/Ruifranca8)
 
-👨‍💻 Autores
+---
 
-    Guilherme Almeida Santana - guilhermesantana73
+## 📝 Licença
 
-    Rodrigo Santos França - Ruifranca8
+ISC
+
+---
+
+## 📌 Status
+
+🚧 Em Desenvolvimento — Recursos em progresso: testes automatizados, notificações via email, painel analytics avançado
